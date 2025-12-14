@@ -1,9 +1,10 @@
 # Render Deployment Configuration
 # https://render.com/docs/deploy-fastapi
+# GitGradeAnalyzer - https://www.dayananddarpan.me/
 
 services:
   - type: web
-    name: gitgrade
+    name: gitgradeanalyzer
     runtime: python
     region: oregon
     plan: free

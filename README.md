@@ -1,6 +1,6 @@
 <![CDATA[<div align="center">
 
-# ⚡ GitGrade
+# ⚡ GitGradeAnalyzer
 
 ### AI-Powered GitHub Repository Analyzer
 
@@ -17,9 +17,9 @@
 
 ---
 
-## 🎯 What is GitGrade?
+## 🎯 What is GitGradeAnalyzer?
 
-GitGrade is an **intelligent repository evaluation system** that analyzes GitHub repositories from a **recruiter's perspective**. Unlike traditional linters that find bugs, GitGrade assesses what makes a developer **hireable** based on their public code.
+GitGradeAnalyzer is an **intelligent repository evaluation system** that analyzes GitHub repositories from a **recruiter's perspective**. Unlike traditional linters that find bugs, GitGradeAnalyzer assesses what makes a developer **hireable** based on their public code.
 
 > 💡 **The Problem**: Students don't know how their GitHub looks to recruiters. GitGrade bridges that gap.
 
@@ -335,7 +335,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ for the GitGrade Hackathon**
+**Built with ❤️ by [Dayanand & Darpan](https://www.dayananddarpan.me/)**
+
+© 2024 [dayananddarpan.me](https://www.dayananddarpan.me/) | All Rights Reserved
 
 ⭐ Star this repo if you found it helpful!
 
