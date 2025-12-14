@@ -53,5 +53,8 @@ async def root():
 
 # Entry point for running with uvicorn directly
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run("src.api.main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.getenv("PORT", "8000"))
+    # In Render and other PaaS, bind to 0.0.0.0 and use the provided $PORT
+    uvicorn.run("src.api.main:app", host=os.getenv("HOST", "0.0.0.0"), port=port, reload=True)
