@@ -136,6 +136,13 @@ class RepoMetadata(BaseModel):
     assets: List[Asset] = Field(default_factory=list)  # Media files found
     file_nodes: List[FileNode] = Field(default_factory=list)  # For diagram
     default_branch: str = "main"  # For raw URL construction
+    # Optional additional repository statistics (may be empty if scraper didn't fetch)
+    stars: int = 0
+    forks: int = 0
+    watchers: int = 0
+    contributors: int = 0
+    # Attach computed hard metrics (populated by orchestrator)
+    hard_metrics: Optional["HardMetrics"] = None
 
 
 class HardMetrics(BaseModel):
