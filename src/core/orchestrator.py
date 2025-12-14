@@ -73,6 +73,12 @@ class Orchestrator:
         
         # Stage 3: Calculate hard metrics  
         hard_metrics = self._analyze(metadata)
+        # Attach computed hard metrics to metadata for downstream scoring
+        try:
+            metadata.hard_metrics = hard_metrics
+        except Exception:
+            # If schema doesn't permit assignment, ignore silently
+            pass
         file_nodes = self._update_file_health(metadata.file_nodes, hard_metrics)
         
         # Update file health based on linter findings
