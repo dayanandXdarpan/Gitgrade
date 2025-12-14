@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # ⚡ GitGradeAnalyzer
 
@@ -10,146 +10,153 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-00D0AA?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Gemini](https://img.shields.io/badge/Gemini-2.0-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
 [![Groq](https://img.shields.io/badge/Groq-Llama--3.3-orange?style=for-the-badge)](https://groq.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-[Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [API](#-api-reference)
+<br>
+
+[🚀 Features](#-features) · [📸 Screenshots](#-screenshots) · [⚡ Quick Start](#-quick-start) · [📖 Usage](#-usage) · [🏗️ Architecture](#️-architecture) · [📡 API](#-api-reference)
+
+<br>
+
+<img src="https://raw.githubusercontent.com/dayanandXdarpan/Gitgrade/main/static/demo.gif" alt="GitGradeAnalyzer Demo" width="800">
 
 </div>
 
 ---
 
-## 🎯 What is GitGradeAnalyzer?
+## 🎯 The Problem We Solve
 
-GitGradeAnalyzer is an **intelligent repository evaluation system** that analyzes GitHub repositories from a **recruiter's perspective**. Unlike traditional linters that find bugs, GitGradeAnalyzer assesses what makes a developer **hireable** based on their public code.
+> **Students don't know how their GitHub looks to recruiters.**
 
-> 💡 **The Problem**: Students don't know how their GitHub looks to recruiters. GitGrade bridges that gap.
+Your GitHub is your portfolio, but most developers have no idea what signals they're sending to potential employers. Are your commit messages professional? Is your README convincing? Does your project structure show experience?
 
-### The 5 Key Areas Recruiters Evaluate
-
-| Area | What It Measures |
-|------|------------------|
-| 🏪 **The Storefront** | Documentation, README quality, first impressions |
-| 🦴 **The Skeleton** | File structure, code organization, architecture |
-| 💪 **Work Ethic** | Commit history, consistency, development patterns |
-| 🧪 **Quality Signals** | Tests, CI/CD, linting, code quality practices |
-| 💎 **Real-World Value** | Uniqueness, completeness, practical applicability |
+**GitGradeAnalyzer** bridges that gap by analyzing repositories exactly like a **Senior Engineering Manager** would during a hiring review.
 
 ---
 
 ## ✨ Features
 
+<table>
+<tr>
+<td width="50%">
+
 ### 🧠 Hybrid AI Engine
-- **Fast Mode** (~1-2s): Groq's Llama-3.3-70B for instant feedback
-- **Deep Mode** (~20-30s): Google Gemini 2.0 for comprehensive analysis
+| Mode | Speed | Best For |
+|------|-------|----------|
+| ⚡ **Fast** | ~2 sec | Quick feedback |
+| 🔬 **Deep** | ~30 sec | Comprehensive analysis |
+
+Uses **Groq (Llama-3.3-70B)** for instant responses and **Google Gemini 2.0** for deep analysis.
+
+</td>
+<td width="50%">
 
 ### 👔 4 Viewer Personas
-| Persona | Focus | Use Case |
-|---------|-------|----------|
-| 👔 **Recruiter** | Hire/No-Hire decisions | Job applications |
-| 🧑‍🏫 **Mentor** | Growth roadmaps | Learning & improvement |
-| 🔓 **Bug Hunter** | Security vulnerabilities | Security audits |
-| 🌍 **GSoC Admin** | Open source readiness | GSoC/Hacktoberfest prep |
+| Persona | Focus |
+|---------|-------|
+| 👔 Recruiter | Hire/No-Hire decisions |
+| 🧑‍🏫 Mentor | Growth & learning paths |
+| 🔓 Bug Hunter | Security vulnerabilities |
+| 🌍 GSoC Admin | Open source readiness |
 
-### 📊 Comprehensive Output
-- **Score**: 0-100 employability rating
-- **Level**: Beginner / Intermediate / Advanced
-- **Verdict**: Strong Hire → Strong No Hire
-- **Resume Bullets**: Copy-paste ready CV points
-- **Interview Question**: Based on YOUR specific code
-- **Red/Green Flags**: What helps and hurts you
-- **Roadmap**: Prioritized action items with specific commands
+</td>
+</tr>
+</table>
 
-### 🔍 Smart Analysis
-- **4 Investigation Agents**: Structure, Context, Quality, History
-- **Universal Parser**: Jupyter notebooks, Docker, K8s, CI/CD
-- **Live Deployment Check**: Verifies if your demo works
-- **Asset Gallery**: Finds images/videos in your repo
+### 📊 What You Get
 
----
+| Output | Description |
+|--------|-------------|
+| **Score (0-100)** | Employability rating based on 5 key areas |
+| **Skill Level** | Beginner / Intermediate / Advanced |
+| **Recruiter Verdict** | Strong Hire → Strong No Hire |
+| **Resume Bullets** | Copy-paste ready CV points |
+| **Interview Question** | Technical Q based on YOUR code |
+| **Red/Green Flags** | What helps and hurts you |
+| **Improvement Roadmap** | Prioritized action items |
 
-## 🚀 Demo
+### 🔍 The 5 Key Areas We Evaluate
 
-### Input
 ```
-https://github.com/username/my-project
-```
-
-### Output
-```json
-{
-  "score": 78,
-  "level": "Intermediate",
-  "headline": "Solid Foundation Needs Polish",
-  "recruiter_verdict": "Hire - Shows professional quality work",
-  "resume_bullets": [
-    "Built full-stack web application using React and Node.js",
-    "Implemented CI/CD pipeline with GitHub Actions",
-    "Maintained 80%+ test coverage across codebase"
-  ],
-  "red_flags": ["No contributing guidelines", "Missing license"],
-  "green_flags": ["Clean commit history", "Comprehensive README"],
-  "roadmap": [
-    {"step": "Add CONTRIBUTING.md", "priority": "High"},
-    {"step": "Add MIT License", "priority": "Critical"}
-  ]
-}
+┌─────────────────────────────────────────────────────────────────┐
+│  🏪 THE STOREFRONT     │  First impressions, README, docs      │
+├─────────────────────────────────────────────────────────────────┤
+│  🦴 THE SKELETON       │  File structure, code organization    │
+├─────────────────────────────────────────────────────────────────┤
+│  💪 WORK ETHIC         │  Commit history, consistency          │
+├─────────────────────────────────────────────────────────────────┤
+│  🧪 QUALITY SIGNALS    │  Tests, CI/CD, linting                │
+├─────────────────────────────────────────────────────────────────┤
+│  💎 REAL-WORLD VALUE   │  Uniqueness, practical applicability  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📦 Installation
+## 📸 Screenshots
+
+<div align="center">
+<table>
+<tr>
+<td align="center"><b>🏠 Home Screen</b></td>
+<td align="center"><b>📊 Analysis Results</b></td>
+</tr>
+<tr>
+<td><img src="https://via.placeholder.com/400x300?text=Home+Screen" width="400"></td>
+<td><img src="https://via.placeholder.com/400x300?text=Results+View" width="400"></td>
+</tr>
+</table>
+</div>
+
+---
+
+## ⚡ Quick Start
 
 ### Prerequisites
-- Python 3.10+
-- API Keys (free tier available):
-  - [Google Gemini API](https://aistudio.google.com/apikey)
-  - [Groq API](https://console.groq.com/keys) (optional, for fast mode)
-  - [GitHub Token](https://github.com/settings/tokens) (optional, for higher rate limits)
 
-### Quick Start
+- **Python 3.10+**
+- **API Keys** (free tier available):
+  - [Google Gemini API](https://aistudio.google.com/apikey) - For deep analysis
+  - [Groq API](https://console.groq.com/keys) - For fast mode (optional)
+  - [GitHub Token](https://github.com/settings/tokens) - For higher rate limits (optional)
+
+### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/gitgrade.git
-cd gitgrade
+# 1. Clone the repository
+git clone https://github.com/dayanandXdarpan/Gitgrade.git
+cd Gitgrade
 
-# Install dependencies
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# Configure environment
+# 3. Set up environment variables
 cp .env.example .env
-# Edit .env and add your API keys
+# Edit .env and add your API keys:
+#   GEMINI_API_KEY=your_key_here
+#   GROQ_API_KEY=your_key_here (optional)
+#   GITHUB_TOKEN=your_token_here (optional)
 
-# Run the server
+# 4. Run the server
 python -m uvicorn src.api.main:app --reload --port 8000
-```
 
-### Environment Variables
-
-Create a `.env` file:
-
-```env
-# Required: At least one AI API key
-GEMINI_API_KEY=your_gemini_api_key
-GROQ_API_KEY=your_groq_api_key
-
-# Optional: Higher GitHub rate limits
-GITHUB_TOKEN=your_github_token
+# 5. Open in browser
+# http://localhost:8000
 ```
 
 ---
 
-## 💻 Usage
+## 📖 Usage
 
-### Web Interface
-1. Open `http://localhost:8000` in your browser
-2. Paste a GitHub repository URL
-3. (Optional) Add a live demo URL for deployment verification
-4. (Optional) Click "Advanced Options" to select:
-   - **Analysis Mode**: Quick Scan (~30s) or Deep Investigation (~2-5min)
-   - **Viewer Persona**: Recruiter, Mentor, Bug Hunter, or GSoC Admin
-5. Click **Analyze** and wait for results
+### 🌐 Web Interface
 
-### API Usage
+1. Open `http://localhost:8000`
+2. Paste any public GitHub repository URL
+3. *(Optional)* Add a live demo URL
+4. *(Optional)* Select analysis mode and persona
+5. Click **Analyze** and get your report!
+
+### 🔌 API Usage
 
 ```python
 import httpx
@@ -158,8 +165,8 @@ response = httpx.post(
     "http://localhost:8000/api/v1/grade",
     json={
         "repo_url": "https://github.com/facebook/react",
-        "mode": "fast",  # or "deep"
-        "persona": "recruiter",  # recruiter, mentor, bug_hunter, gsoc_admin
+        "mode": "fast",           # "fast" or "deep"
+        "persona": "recruiter",   # recruiter, mentor, bug_hunter, gsoc_admin
         "deployed_link": "https://react.dev"  # optional
     },
     timeout=120
@@ -168,6 +175,38 @@ response = httpx.post(
 result = response.json()
 print(f"Score: {result['score']}/100")
 print(f"Verdict: {result['recruiter_verdict']}")
+print(f"Resume Bullets: {result['resume_bullets']}")
+```
+
+### 📋 Sample Output
+
+```json
+{
+  "score": 78,
+  "level": "Intermediate",
+  "headline": "Solid Foundation Needs Polish",
+  "recruiter_verdict": "Hire - Shows professional quality work",
+  "summary": "Well-structured project with clean code. Documentation is strong but test coverage needs improvement.",
+  "resume_bullets": [
+    "Built full-stack web application using React and Node.js",
+    "Implemented CI/CD pipeline with GitHub Actions",
+    "Maintained clean commit history with conventional commits"
+  ],
+  "interview_question": "I noticed you used Redux for state management. Can you explain why you chose Redux over Context API for this project?",
+  "red_flags": ["No unit tests", "Missing contributing guidelines"],
+  "green_flags": ["Comprehensive README", "Clean commit history", "Proper .gitignore"],
+  "metrics": {
+    "structure_rating": "B",
+    "docs_rating": "A",
+    "test_rating": "D",
+    "commit_rating": "B"
+  },
+  "roadmap": [
+    {"step": "Add unit tests", "priority": "Critical", "impact": "Major employability boost"},
+    {"step": "Add CONTRIBUTING.md", "priority": "High", "impact": "Shows collaboration readiness"},
+    {"step": "Set up GitHub Actions CI", "priority": "High", "impact": "Demonstrates DevOps knowledge"}
+  ]
+}
 ```
 
 ---
@@ -176,170 +215,161 @@ print(f"Verdict: {result['recruiter_verdict']}")
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         Frontend (Static)                        │
-│  index.html → app.js → styles.css                               │
-└────────────────────────────┬────────────────────────────────────┘
-                             │ HTTP POST /api/v1/grade
-┌────────────────────────────▼────────────────────────────────────┐
-│                      FastAPI Backend                             │
-│  main.py (Entry) → routes.py (Endpoints)                        │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-┌────────────────────────────▼────────────────────────────────────┐
-│                      Orchestrator                                │
-│  The central pipeline: Investigate → Scrape → Analyze → Grade   │
-└───────┬───────────────┬───────────────┬───────────────┬─────────┘
-        │               │               │               │
-   ┌────▼────┐     ┌────▼────┐     ┌────▼────┐    ┌────▼────┐
-   │ Agents  │     │ GitHub  │     │ Linter  │    │AI Engine│
-   │ (4x)    │     │ Scraper │     │ Service │    │ (Hybrid)│
-   └─────────┘     └─────────┘     └─────────┘    └─────────┘
+│                    🌐 Frontend (Static)                         │
+│              index.html + app.js + styles.css                   │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │ POST /api/v1/grade
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    ⚡ FastAPI Backend                            │
+│                   main.py → routes.py                           │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    🎯 Orchestrator                               │
+│         The Brain: Coordinates the entire pipeline              │
+└──────┬──────────┬──────────┬──────────┬──────────┬──────────────┘
+       │          │          │          │          │
+       ▼          ▼          ▼          ▼          ▼
+   ┌───────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
+   │Agents │ │ GitHub │ │ Linter │ │   AI   │ │ Deploy │
+   │ (4x)  │ │Scraper │ │Service │ │ Engine │ │ Verify │
+   └───────┘ └────────┘ └────────┘ └────────┘ └────────┘
 ```
 
-### Project Structure
+### 📁 Project Structure
 
 ```
-gitgrade/
-├── src/
-│   ├── api/
-│   │   ├── main.py          # FastAPI app entry point
-│   │   └── routes.py        # API endpoints
-│   ├── core/
-│   │   ├── orchestrator.py  # Main pipeline coordinator
-│   │   ├── schemas.py       # Pydantic data models
-│   │   ├── personas.py      # 4 viewer personas
-│   │   └── config.py        # Environment config
-│   ├── services/
-│   │   ├── ai_engine.py     # Hybrid AI (Groq + Gemini)
-│   │   ├── agents.py        # 4 investigation agents
-│   │   ├── github_scraper.py# GitHub API integration
-│   │   ├── linter.py        # Static code analysis
-│   │   └── file_parser.py   # Universal file parser
-│   └── __init__.py
-├── static/
-│   ├── index.html           # Dashboard UI
-│   ├── app.js               # Frontend logic
-│   └── styles.css           # Modern dark theme
-├── prompts/
-│   └── gitgrade_persona.md  # AI system prompt
-├── .env.example             # Environment template
-├── requirements.txt         # Python dependencies
-└── README.md
+GitGradeAnalyzer/
+│
+├── 📂 src/
+│   ├── 📂 api/
+│   │   ├── main.py              # FastAPI entry point
+│   │   └── routes.py            # API endpoints
+│   │
+│   ├── 📂 core/
+│   │   ├── orchestrator.py      # Main pipeline coordinator
+│   │   ├── schemas.py           # Pydantic data models
+│   │   ├── personas.py          # 4 viewer personas
+│   │   └── config.py            # Environment config
+│   │
+│   └── 📂 services/
+│       ├── ai_engine.py         # Hybrid AI (Groq + Gemini)
+│       ├── agents.py            # 4 investigation agents
+│       ├── github_scraper.py    # GitHub API integration
+│       ├── linter.py            # Static code analysis
+│       └── universal_parser.py  # Polyglot file parser
+│
+├── 📂 static/
+│   ├── index.html               # Dashboard UI
+│   ├── app.js                   # Frontend logic
+│   └── styles.css               # Modern dark theme
+│
+├── 📂 prompts/
+│   └── gitgrade_persona.md      # AI system prompt
+│
+├── .env.example                 # Environment template
+├── requirements.txt             # Dependencies
+├── render.yaml                  # Render deployment config
+└── README.md                    # You are here!
 ```
 
 ---
 
 ## 📡 API Reference
 
-### Grade Repository
+### Endpoints
 
-```http
-POST /api/v1/grade
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/` | Web dashboard |
+| `POST` | `/api/v1/grade` | Analyze repository |
+| `GET` | `/api/v1/options` | Available personas & modes |
+| `GET` | `/api/v1/health` | Health check |
+
+### POST `/api/v1/grade`
 
 **Request Body:**
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `repo_url` | string | ✅ | GitHub repository URL |
-| `mode` | string | ❌ | `fast` (default) or `deep` |
-| `persona` | string | ❌ | `mentor` (default), `recruiter`, `bug_hunter`, `gsoc_admin` |
-| `deployed_link` | string | ❌ | Live demo URL to verify |
 
-**Response:** Full `GradeReport` JSON object
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `repo_url` | string | ✅ | - | GitHub repository URL |
+| `mode` | string | ❌ | `fast` | `fast` or `deep` |
+| `persona` | string | ❌ | `mentor` | `recruiter`, `mentor`, `bug_hunter`, `gsoc_admin` |
+| `deployed_link` | string | ❌ | - | Live demo URL to verify |
 
-### Get Options
-
-```http
-GET /api/v1/options
-```
-
-Returns available personas and analysis modes.
-
-### Health Check
-
-```http
-GET /api/v1/health
-```
+**Response:** Complete `GradeReport` JSON object
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Backend** | Python, FastAPI, Uvicorn, Pydantic |
+| Category | Technologies |
+|----------|-------------|
+| **Backend** | Python 3.10+, FastAPI, Uvicorn, Pydantic |
 | **AI/LLM** | Google Gemini 2.0, Groq Llama-3.3-70B |
-| **HTTP** | httpx (async) |
-| **Frontend** | Vanilla HTML/CSS/JS |
-| **Styling** | Custom CSS, Inter font |
+| **HTTP Client** | httpx (async) |
+| **Frontend** | HTML5, CSS3, Vanilla JavaScript |
+| **Deployment** | Render, Docker (optional) |
 
 ---
 
-## 📊 Sample Output
+## 🚀 Deployment
 
-```
-┌────────────────────────────────────────────────┐
-│  ⚡ GitGrade Report                             │
-├────────────────────────────────────────────────┤
-│  Score: 78/100 (Intermediate)                  │
-│  Verdict: "Hire - Shows solid fundamentals"   │
-├────────────────────────────────────────────────┤
-│  📊 Metrics                                     │
-│  ├── Structure: B                              │
-│  ├── Docs: A                                   │
-│  ├── Tests: C                                  │
-│  └── Commits: B                                │
-├────────────────────────────────────────────────┤
-│  🚩 Red Flags                                   │
-│  ├── No CI/CD pipeline                         │
-│  └── Missing contributing guidelines           │
-├────────────────────────────────────────────────┤
-│  ✅ Green Flags                                 │
-│  ├── Comprehensive README                      │
-│  └── Consistent commit history                 │
-├────────────────────────────────────────────────┤
-│  🚀 Top Priority Actions                       │
-│  1. Add GitHub Actions CI (Critical)           │
-│  2. Write unit tests (High)                    │
-│  3. Add CONTRIBUTING.md (Medium)               │
-└────────────────────────────────────────────────┘
-```
+### Deploy on Render (Free)
+
+1. Fork this repository
+2. Go to [render.com](https://render.com) → New Web Service
+3. Connect your GitHub repo
+4. Add environment variables:
+   - `GEMINI_API_KEY`
+   - `GROQ_API_KEY`
+   - `GITHUB_TOKEN` (optional)
+5. Deploy! 🎉
+
+The `render.yaml` is already configured for one-click deployment.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Here's how:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add amazing feature'`
+4. **Push** to branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- [Google Gemini](https://ai.google.dev) for deep AI analysis
-- [Groq](https://groq.com) for lightning-fast inference
-- [FastAPI](https://fastapi.tiangolo.com) for the awesome web framework
+- [Google Gemini](https://ai.google.dev) - Deep AI analysis
+- [Groq](https://groq.com) - Lightning-fast inference
+- [FastAPI](https://fastapi.tiangolo.com) - Modern Python web framework
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by [Dayanand & Darpan](https://www.dayananddarpan.me/)**
+### Built with ❤️ by [Dayanand & Darpan](https://www.dayananddarpan.me/)
 
 © 2024 [dayananddarpan.me](https://www.dayananddarpan.me/) | All Rights Reserved
 
-⭐ Star this repo if you found it helpful!
+<br>
+
+**⭐ Star this repo if you found it helpful!**
+
+<br>
+
+[🔝 Back to Top](#-gitgradeanalyzer)
 
 </div>
-]]>
