@@ -444,12 +444,106 @@ Total Files: {metadata.total_files}
         # === RESPONSE NORMALIZER ===
         # Fix common LLM output variations to match our strict schema
         data = self._normalize_response(data)
+
+        # === Deterministic scoring enhancement ===
+        # Compute a deterministic employability score from repository artifacts
+        try:
+            computed = self._compute_employability_score(metadata)
+        except Exception:
+            computed = data.get('metrics', {}).get('employability_score', data.get('score', 50))
+
+        # Blend LLM score with deterministic score: prefer deterministic (80%) but allow LLM nuance (20%)
+        llm_score = data.get('score', computed)
+        try:
+            final_score = int(round(0.8 * float(computed) + 0.2 * float(llm_score)))
+        except Exception:
+            final_score = int(computed)
+
+        data['score'] = max(0, min(100, final_score))
+        # Ensure metrics.employability_score reflects final score
+        if 'metrics' not in data:
+            data['metrics'] = {}
+        data['metrics']['employability_score'] = data['score']
         
         # Validate and create GradeReport
         try:
             return GradeReport(**data)
         except Exception as e:
             raise AIEngineError(f"Response validation failed: {e}")
+
+    def _compute_employability_score(self, metadata: RepoMetadata) -> int:
+        """
+        Deterministic scoring algorithm based on repository artifacts.
+
+        Categories (100 total):
+        - Code Quality: 25
+        - Documentation: 20
+        - Testing & CI/CD: 15
+        - Git Hygiene: 15
+        - Project Health: 10
+        - Community Engagement: 10
+        - Professional Setup: 5
+        """
+        # Safely extract hard metrics if present
+        hm = getattr(metadata, 'hard_metrics', None)
+
+        def score_from_percent(pct, max_points):
+            return round(max_points * (max(0, min(100, pct)) / 100.0))
+
+        # Code Quality (25): use structure_score and commit_quality_score
+        structure = hm.structure_score if hm else 50
+        commit_q = hm.commit_quality_score if hm else 50
+        code_quality_pct = (0.6 * structure + 0.4 * commit_q)
+        code_quality = score_from_percent(code_quality_pct, 25)
+
+        # Documentation (20): use docs_score and README flag
+        docs = hm.docs_score if hm else 40
+        readme_bonus = 10 if getattr(metadata, 'has_readme', False) else 0
+        docs_pct = min(100, docs + readme_bonus)
+        docs_score = score_from_percent(docs_pct, 20)
+
+        # Testing & CI/CD (15): test_score and presence of CI config in files
+        tests = hm.test_score if hm else 0
+        has_ci = 1 if '.github' in getattr(metadata, 'file_tree', '') or 'github/workflows' in getattr(metadata, 'file_tree', '') else 0
+        tests_pct = min(100, tests + (20 if has_ci else 0))
+        tests_score = score_from_percent(tests_pct, 15)
+
+        # Git Hygiene (15): commit quality and commit history presence
+        commit_pct = commit_q
+        recent_activity = 20 if getattr(metadata, 'commit_log', '').strip() else 0
+        git_hygiene_pct = min(100, 0.7 * commit_pct + 0.3 * recent_activity)
+        git_hygiene = score_from_percent(git_hygiene_pct, 15)
+
+        # Project Health (10): recent activity, dependencies present
+        recent = 100 if getattr(metadata, 'commit_log', '').strip() else 0
+        deps = 20 if getattr(metadata, 'dependency_files', '').strip() else 0
+        project_health_pct = min(100, 0.7 * recent + 0.3 * deps)
+        project_health = score_from_percent(project_health_pct, 10)
+
+        # Community Engagement (10): stars/forks/watchers/contributors
+        stars = getattr(metadata, 'stars', 0) or 0
+        forks = getattr(metadata, 'forks', 0) or 0
+        watchers = getattr(metadata, 'watchers', 0) or 0
+        contributors = getattr(metadata, 'contributors', 0) or 0
+
+        # Simple normalized engagement score (cap influence)
+        eng_score_raw = min(100, (min(stars, 100) * 0.4) + (min(forks, 100) * 0.2) + (min(watchers, 100) * 0.2) + (min(contributors, 50) * 0.2))
+        engagement = score_from_percent(eng_score_raw, 10)
+
+        # Professional Setup (5): license, gitignore, SECURITY, CODE_OF_CONDUCT presence
+        prof = 0
+        prof += 2 if getattr(metadata, 'has_readme', False) else 0
+        prof += 2 if getattr(metadata, 'has_gitignore', False) else 0
+        # Note: License detection often via investigation; try to read issues
+        license_present = any('license' in (issue.lower()) for issue in (hm.issues if hm else [])) if hm else False
+        prof += 1 if license_present else 0
+        prof = min(5, prof)
+
+        total = code_quality + docs_score + tests_score + git_hygiene + project_health + engagement + prof
+
+        # Ensure within bounds
+        total = max(0, min(100, int(total)))
+        return total
     
     # ==========================================
     # GROQ ENGINE (Fast Mode)
