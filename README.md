@@ -300,7 +300,7 @@ GitGrade/
 
 ### Deploy on Render (Free)
 
-https://gitgrade-analyzer.onrender.com
+live website -https://gitgrade-analyzer.onrender.com (LLM quotas limited)
 
 1. Fork this repository
 2. Go to [render.com](https://render.com) → New Web Service
@@ -343,9 +343,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <div align="center">
 
-### Built with ❤️ by [Dayanand & Darpan](https://www.dayananddarpan.me/)
+### Built with ❤️ by [Dayanand Darpan](https://www.dayananddarpan.me/)
 
-© 2024 [dayananddarpan.me](https://www.dayananddarpan.me/) | All Rights Reserved
+© 2025 [dayananddarpan.me](https://www.dayananddarpan.me/) | All Rights Reserved
 
 <br>
 
