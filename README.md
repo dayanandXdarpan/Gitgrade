@@ -18,7 +18,7 @@
 
 <br>
 
-<img src="https://raw.githubusercontent.com/dayanandXdarpan/Gitgrade/main/static/demo.gif" alt="GitGradeAnalyzer Demo" width="800">
+<img src="https://raw.githubusercontent.com/dayanandXdarpan/Gitgrade/main/static/demo.gif" alt="GitGrade Demo" width="800">
 
 </div>
 
@@ -30,7 +30,7 @@
 
 Your GitHub is your portfolio, but most developers have no idea what signals they're sending to potential employers. Are your commit messages professional? Is your README convincing? Does your project structure show experience?
 
-**GitGradeAnalyzer** bridges that gap by analyzing repositories exactly like a **Senior Engineering Manager** would during a hiring review.
+**GitGrade** bridges that gap by analyzing repositories exactly like a **Senior Engineering Manager** would during a hiring review.
 
 ---
 
@@ -90,25 +90,6 @@ Uses **Groq (Llama-3.3-70B)** for instant responses and **Google Gemini 2.0** fo
 │  💎 REAL-WORLD VALUE   │  Uniqueness, practical applicability  │
 └─────────────────────────────────────────────────────────────────┘
 ```
-
----
-
-## 📸 Screenshots
-
-<div align="center">
-<table>
-<tr>
-<td align="center"><b>🏠 Home Screen</b></td>
-<td align="center"><b>📊 Analysis Results</b></td>
-</tr>
-<tr>
-<td><img src="https://via.placeholder.com/400x300?text=Home+Screen" width="400"></td>
-<td><img src="https://via.placeholder.com/400x300?text=Results+View" width="400"></td>
-</tr>
-</table>
-</div>
-
----
 
 ## ⚡ Quick Start
 
@@ -241,7 +222,7 @@ print(f"Resume Bullets: {result['resume_bullets']}")
 ### 📁 Project Structure
 
 ```
-GitGradeAnalyzer/
+GitGrade/
 │
 ├── 📂 src/
 │   ├── 📂 api/
@@ -370,6 +351,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <br>
 
-[🔝 Back to Top](#-gitgradeanalyzer)
+[🔝 Back to Top](#-gitgrade)
 
 </div>
