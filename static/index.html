@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitGrade - AI Repository Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">GitGrade</span>
+            </div>
+            <p class="tagline">AI-Powered Repository Analysis • See Your Code Like a Recruiter Does</p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section" id="inputSection">
+            <div class="input-card">
+                <h2 class="input-title">Analyze Your Repository</h2>
+                <p class="input-subtitle">Paste a GitHub URL and get instant professional feedback</p>
+                
+                <div class="url-input-container">
+                    <div class="input-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="repoUrl" 
+                        class="url-input" 
+                        placeholder="https://github.com/username/repository"
+                        autocomplete="off"
+                    >
+                    <button class="analyze-btn" id="analyzeBtn" onclick="analyzeRepo()">
+                        <span class="btn-text">Analyze</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+                
+                <!-- Optional Deploy Link -->
+                <div class="deploy-input-container">
+                    <input 
+                        type="text" 
+                        id="deployUrl" 
+                        class="deploy-input" 
+                        placeholder="Live demo URL (optional) - e.g., https://myapp.vercel.app"
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <!-- Advanced Options (Collapsed by default) -->
+                <div class="advanced-options-container">
+                    <button class="advanced-toggle" id="advancedToggle" onclick="toggleAdvancedOptions()">
+                        <span class="toggle-icon">⚙️</span>
+                        <span class="toggle-text">Advanced Options</span>
+                        <span class="toggle-arrow" id="toggleArrow">▼</span>
+                    </button>
+                    
+                    <div class="advanced-panel hidden" id="advancedPanel">
+                        <!-- Analysis Mode -->
+                        <div class="option-group">
+                            <label class="option-label">
+                                <span class="label-icon">⚡</span>
+                                Analysis Mode
+                            </label>
+                            <div class="option-buttons" id="modeButtons">
+                                <button class="option-btn active" data-mode="fast" onclick="setMode('fast')">
+                                    <span class="option-icon">⚡</span>
+                                    <span class="option-name">Quick Scan</span>
+                                    <span class="option-time">~30s</span>
+                                </button>
+                                <button class="option-btn" data-mode="deep" onclick="setMode('deep')">
+                                    <span class="option-icon">🔬</span>
+                                    <span class="option-name">Deep Investigation</span>
+                                    <span class="option-time">~2-5min</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Viewer Persona -->
+                        <div class="option-group">
+                            <label class="option-label">
+                                <span class="label-icon">👤</span>
+                                View As
+                            </label>
+                            <div class="persona-grid" id="personaGrid">
+                                <button class="persona-btn" data-persona="recruiter" onclick="setPersona('recruiter')">
+                                    <span class="persona-icon">👔</span>
+                                    <span class="persona-name">Recruiter</span>
+                                    <span class="persona-focus">Hire/No Hire</span>
+                                </button>
+                                <button class="persona-btn active" data-persona="mentor" onclick="setPersona('mentor')">
+                                    <span class="persona-icon">🧑‍🏫</span>
+                                    <span class="persona-name">Mentor</span>
+                                    <span class="persona-focus">Growth Path</span>
+                                </button>
+                                <button class="persona-btn" data-persona="bug_hunter" onclick="setPersona('bug_hunter')">
+                                    <span class="persona-icon">🔓</span>
+                                    <span class="persona-name">Bug Hunter</span>
+                                    <span class="persona-focus">Security</span>
+                                </button>
+                                <button class="persona-btn" data-persona="gsoc_admin" onclick="setPersona('gsoc_admin')">
+                                    <span class="persona-icon">🌍</span>
+                                    <span class="persona-name">GSoC Admin</span>
+                                    <span class="persona-focus">Open Source</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-repos">
+                    <span>Try:</span>
+                    <button class="example-btn" onclick="setExample('https://github.com/facebook/react')">facebook/react</button>
+                    <button class="example-btn" onclick="setExample('https://github.com/microsoft/vscode')">microsoft/vscode</button>
+                    <button class="example-btn" onclick="setExample('https://github.com/octocat/Hello-World')">octocat/Hello-World</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section (Hidden by default) -->
+        <section class="progress-section hidden" id="progressSection">
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div class="progress-icon spinning">⚡</div>
+                    <h3 class="progress-title">Analyzing Repository</h3>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step" id="step1">
+                        <div class="step-indicator"></div>
+                        <span>Fetching repository data...</span>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-indicator"></div>
+                        <span>Scanning assets & files...</span>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-indicator"></div>
+                        <span>Running AI evaluation...</span>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-indicator"></div>
+                        <span>Verifying deployment...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section (Hidden by default) -->
+        <section class="results-section hidden" id="resultsSection">
+            <!-- Score Hero -->
+            <div class="score-hero">
+                <div class="score-circle-container">
+                    <svg class="score-ring" viewBox="0 0 200 200">
+                        <circle class="score-ring-bg" cx="100" cy="100" r="90"/>
+                        <circle class="score-ring-progress" cx="100" cy="100" r="90" id="scoreRing"/>
+                    </svg>
+                    <div class="score-content">
+                        <span class="score-number" id="scoreNumber">0</span>
+                        <span class="score-label">/ 100</span>
+                    </div>
+                </div>
+                <div class="score-info">
+                    <div class="score-header-row">
+                        <div class="repo-name" id="repoName">Loading...</div>
+                        <!-- Live Demo Button -->
+                        <a href="#" class="live-demo-btn hidden" id="liveDemoBtn" target="_blank" rel="noopener">
+                            <span class="live-indicator"></span>
+                            <span>Live Demo</span>
+                        </a>
+                        <span class="deploy-broken hidden" id="deployBroken">⚠️ Deploy Broken</span>
+                    </div>
+                    <div class="level-badge" id="levelBadge">
+                        <span class="level-icon">🎯</span>
+                        <span class="level-text" id="levelText">Intermediate</span>
+                    </div>
+                    <!-- AI Engine Info (Hybrid Engine) -->
+                    <div class="ai-engine-info" id="aiEngineInfo" style="display: none;"></div>
+                    <p class="critique" id="critique">"Loading critique..."</p>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">
+                    <span class="tab-icon">📊</span>
+                    <span>Overview</span>
+                </button>
+                <button class="tab-btn" data-tab="codemap" onclick="switchTab('codemap')">
+                    <span class="tab-icon">🗺️</span>
+                    <span>Code Map</span>
+                    <span class="tab-badge" id="codeMapBadge">0</span>
+                </button>
+                <button class="tab-btn" data-tab="assets" onclick="switchTab('assets')">
+                    <span class="tab-icon">🖼️</span>
+                    <span>Assets</span>
+                    <span class="tab-badge" id="assetsBadge">0</span>
+                </button>
+            </div>
+
+            <!-- Tab Content: Overview -->
+            <div class="tab-content active" id="tab-overview">
+                
+                <!-- NEW: Recruiter Verdict Card (THE KILLER FEATURE) -->
+                <div class="verdict-card skeleton" id="verdictCard">
+                    <div class="verdict-badge" id="verdictBadge">
+                        <span class="verdict-icon">⚖️</span>
+                        <span class="verdict-text" id="verdictText">Analyzing...</span>
+                    </div>
+                    <p class="verdict-reason" id="verdictReason">Our AI recruiter is evaluating your repository...</p>
+                </div>
+
+                <!-- NEW: Red Flags / Green Flags (The Kill Sheet) -->
+                <div class="flags-grid">
+                    <div class="flags-card red-flags skeleton" id="redFlagsCard">
+                        <h4 class="flags-title">
+                            <span class="flags-icon">🚩</span>
+                            Red Flags
+                        </h4>
+                        <ul class="flags-list" id="redFlagsList">
+                            <li class="flag-item skeleton-text"></li>
+                        </ul>
+                    </div>
+                    <div class="flags-card green-flags skeleton" id="greenFlagsCard">
+                        <h4 class="flags-title">
+                            <span class="flags-icon">✅</span>
+                            Green Flags
+                        </h4>
+                        <ul class="flags-list" id="greenFlagsList">
+                            <li class="flag-item skeleton-text"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid - THE 5 KEY AREAS RECRUITERS EVALUATE -->
+                <h3 class="areas-title">
+                    <span class="section-icon">👔</span>
+                    The 5 Key Areas Recruiters Evaluate
+                </h3>
+                <div class="metrics-grid five-areas">
+                    <div class="metric-card skeleton" id="metricStorefront">
+                        <div class="metric-header">
+                            <span class="metric-icon">🏪</span>
+                            <span class="metric-title">The Storefront</span>
+                        </div>
+                        <div class="metric-subtitle">Documentation & First Impressions</div>
+                        <div class="metric-grade" id="gradeDocs">-</div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" id="barDocs"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card skeleton" id="metricSkeleton">
+                        <div class="metric-header">
+                            <span class="metric-icon">🦴</span>
+                            <span class="metric-title">The Skeleton</span>
+                        </div>
+                        <div class="metric-subtitle">File Structure & Organization</div>
+                        <div class="metric-grade" id="gradeStructure">-</div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" id="barStructure"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card skeleton" id="metricWorkEthic">
+                        <div class="metric-header">
+                            <span class="metric-icon">💪</span>
+                            <span class="metric-title">Work Ethic</span>
+                        </div>
+                        <div class="metric-subtitle">Commit History & Consistency</div>
+                        <div class="metric-grade" id="gradeCommits">-</div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" id="barCommits"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card skeleton" id="metricQuality">
+                        <div class="metric-header">
+                            <span class="metric-icon">🧪</span>
+                            <span class="metric-title">Quality Signals</span>
+                        </div>
+                        <div class="metric-subtitle">Tests, Linting & CI/CD</div>
+                        <div class="metric-grade" id="gradeTests">-</div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" id="barTests"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card skeleton" id="metricValue">
+                        <div class="metric-header">
+                            <span class="metric-icon">💎</span>
+                            <span class="metric-title">Real-World Value</span>
+                        </div>
+                        <div class="metric-subtitle">Uniqueness & Completeness</div>
+                        <div class="metric-grade" id="gradeValue">-</div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" id="barValue"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="summary-card skeleton" id="summaryCard">
+                    <h3 class="section-title">
+                        <span class="section-icon">📊</span>
+                        Professional Summary
+                    </h3>
+                    <p class="summary-text" id="summaryText">Loading summary...</p>
+                </div>
+
+                <!-- Resume Bullets -->
+                <div class="resume-card skeleton" id="resumeCard">
+                    <h3 class="section-title">
+                        <span class="section-icon">💼</span>
+                        Resume Bullets
+                    </h3>
+                    <p class="resume-subtitle">Copy these to your CV to describe this project:</p>
+                    <ul class="resume-list" id="resumeList">
+                        <li class="resume-item skeleton-text"></li>
+                        <li class="resume-item skeleton-text"></li>
+                        <li class="resume-item skeleton-text"></li>
+                    </ul>
+                </div>
+
+                <!-- Interview Question -->
+                <div class="interview-card skeleton" id="interviewCard">
+                    <h3 class="section-title">
+                        <span class="section-icon">🎤</span>
+                        Interview Question
+                    </h3>
+                    <p class="interview-subtitle">A recruiter might ask you:</p>
+                    <blockquote class="interview-question" id="interviewQuestion">
+                        Loading question...
+                    </blockquote>
+                </div>
+
+                <!-- Roadmap -->
+                <div class="roadmap-card skeleton" id="roadmapCard">
+                    <h3 class="section-title">
+                        <span class="section-icon">🚀</span>
+                        Improvement Roadmap
+                    </h3>
+                    <div class="roadmap-list" id="roadmapList">
+                        <!-- Roadmap items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Code Map -->
+            <div class="tab-content" id="tab-codemap">
+                <div class="codemap-container">
+                    <div class="codemap-header">
+                        <h3 class="section-title">
+                            <span class="section-icon">🗺️</span>
+                            Interactive Code Health Map
+                        </h3>
+                        <div class="codemap-legend">
+                            <span class="legend-item"><span class="legend-dot healthy"></span> Healthy</span>
+                            <span class="legend-item"><span class="legend-dot warning"></span> Needs Work</span>
+                            <span class="legend-item"><span class="legend-dot critical"></span> Critical</span>
+                        </div>
+                    </div>
+                    <div class="codemap-diagram" id="codeMapDiagram">
+                        <!-- File nodes will be rendered here -->
+                        <div class="codemap-placeholder">
+                            <span class="placeholder-icon">📂</span>
+                            <p>Analyzing file structure...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Assets -->
+            <div class="tab-content" id="tab-assets">
+                <div class="assets-container">
+                    <div class="assets-header">
+                        <h3 class="section-title">
+                            <span class="section-icon">🖼️</span>
+                            Media Assets Gallery
+                        </h3>
+                        <button class="download-all-btn hidden" id="downloadAllBtn" onclick="downloadAllAssets()">
+                            <span>⬇️</span> Download All
+                        </button>
+                    </div>
+                    <div class="assets-gallery" id="assetsGallery">
+                        <!-- Asset items will be rendered here -->
+                        <div class="assets-placeholder" id="assetsPlaceholder">
+                            <span class="placeholder-icon">🖼️</span>
+                            <p>No media assets found in this repository</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analyze Another Button -->
+            <div class="action-footer">
+                <button class="analyze-another-btn" onclick="resetAndAnalyze()">
+                    <span>⚡</span> Analyze Another Repository
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
