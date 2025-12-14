@@ -14,7 +14,7 @@
 
 <br>
 
-[🚀 Features](#-features) · [📸 Screenshots](#-screenshots) · [⚡ Quick Start](#-quick-start) · [📖 Usage](#-usage) · [🏗️ Architecture](#️-architecture) · [📡 API](#-api-reference)
+[🚀 Features](#-features) · [⚡ Quick Start](#-quick-start) · [📖 Usage](#-usage) · [🏗️ Architecture](#️-architecture) · [📡 API](#-api-reference)
 
 <br>
 
